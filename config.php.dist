@@ -1,0 +1,5 @@
+<?php
+
+$mysql_name = "";
+$mysql_passwd = "";
+$mysql_host = "";
