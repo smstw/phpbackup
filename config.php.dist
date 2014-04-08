@@ -1,8 +1,15 @@
 <?php
 
-$mysql_username = "";
-$mysql_passwd = "";
-$mysql_host = "";
-$mysql_backup_name = "";
-$test_mode = 1;
-$mysqldump_locate = "/Applications/AMPPS/mysql/bin/mysqldump";
+$cfg = array();
+
+/* Server: localhost [1] */
+$cfg['Site'][1]['host'] = 'localhost';
+$cfg['Site'][1]['user'] = '';
+$cfg['Site'][1]['password'] = '';
+$cfg['Site'][1]['database'] = '';
+
+/* End of servers configuration */
+
+$cfg['TestMode'] = 1;
+$cfg['DefaultLang'] = 'en-utf-8';
+$cfg['MysqlDump_locate'] = '/Applications/AMPPS/mysql/bin/mysqldump';

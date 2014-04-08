@@ -7,30 +7,18 @@
  */
 include('config.php');
 
-$today = date('YmdHis');
-
-$real_path = realpath('backups');
-
-$backup_dir = $real_path . '/' . $today;
-
-$backup_sql_name = $backup_dir . '/'  . $mysql_backup_name;
-
-$mysqldump_cmd = $mysqldump_locate . ' -u'. $mysql_username .' -p' . $mysql_passwd . ' --all-databases > ' . $backup_sql_name;
-
-if(is_dir($backup_dir))
+foreach (glob("lib/*.php") as $filename)
 {
-	echo 'The dir' . $backup_dir  . 'is exited' . PHP_EOL;
+	include $filename;
 }
-else
-{
-	if($test_mode == 1)
-	{
-		echo 'This will create dir named ' . $backup_dir . PHP_EOL;
-		echo 'The shell string is '. $mysqldump_cmd . PHP_EOL;
-	}
-	else
-	{
-		mkdir($backup_dir);
-		system($mysqldump_cmd);
-	}
-}
+
+$app = new SqlBackupApplications($cfg);
+
+$backup_dir = $app->MakeBackupDir($cfg['Site'][1]['database']);
+
+$backup_sql_name = $app->SetBackupName($cfg['Site'][1]['database']);
+
+$dist = $backup_dir . '/' . $backup_sql_name;
+
+$app->DumpingSQL(1,$dist);
+
