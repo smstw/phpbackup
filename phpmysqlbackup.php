@@ -14,11 +14,13 @@ foreach (glob("lib/*.php") as $filename)
 
 $app = new SqlBackupApplications($cfg);
 
-$backup_dir = $app->MakeBackupDir($cfg['Site'][1]['database']);
+foreach ($cfg['Site'] as $i => $param)
+{
+	$backup_dir = $app->MakeBackupDir($i);
 
-$backup_sql_name = $app->SetBackupName($cfg['Site'][1]['database']);
+	$backup_sql_name = $app->SetBackupName($i);
 
-$dist = $backup_dir . '/' . $backup_sql_name;
+	$dist = $backup_dir . '/' . $backup_sql_name;
 
-$app->DumpingSQL(1,$dist);
-
+	$app->DumpingSQL($i,$dist);
+}

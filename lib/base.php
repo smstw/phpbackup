@@ -25,12 +25,14 @@ class SqlBackupApplications
 	/**
 	 * MakeBackupDir
 	 *
-	 * @param $cfg_site
+	 * @param $cfg_i
 	 *
 	 * @return  string
 	 */
-	function MakeBackupDir($cfg_site)
+	function MakeBackupDir($cfg_i)
 	{
+		$cfg_site = $this->cfg['Site'][$cfg_i]['database'];
+
 		$real_path = realpath('backups');
 
 		$today = $this->MakeTodayDir($real_path);
@@ -39,7 +41,7 @@ class SqlBackupApplications
 
 		if (is_dir($backup_dir))
 		{
-			echo 'The dir' . $backup_dir  . ' is exited' . PHP_EOL;
+			echo 'The dir ' . $backup_dir  . ' is exited.' . PHP_EOL;
 		}
 		else
 		{
@@ -70,7 +72,7 @@ class SqlBackupApplications
 
 		if (is_dir($full_path))
 		{
-			echo 'The dir' . $full_path  . ' is exited' . PHP_EOL;
+			echo 'The dir ' . $full_path  . ' is exited.' . PHP_EOL;
 		}
 		else
 		{
@@ -90,12 +92,13 @@ class SqlBackupApplications
 	/**
 	 * SetBackupName
 	 *
-	 * @param $cfg_site
+	 * @param $cfg_i
 	 *
 	 * @return  string
 	 */
-	function SetBackupName($cfg_site)
+	function SetBackupName($cfg_i)
 	{
+		$cfg_site = $this->cfg['Site'][$cfg_i]['database'];
 		$serial = date('YmdHis');
 		$backup_sql_name = $cfg_site . '-' . $serial .'.sql';
 
