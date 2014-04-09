@@ -52,6 +52,20 @@ $cfg['MysqlDump_locate'] = '/Applications/AMPPS/mysql/bin/mysqldump';
 $php phpmysqlbackup.php
 ```
 
+## 使用於自動排程中
+
+   - 啟用 crontab 編輯器
+
+```bash
+$crontab -e
+```
+
+  - 加入指令，如每天半夜3點30分執行備份
+
+```bash
+30  3  *  *  *  php /path/to/phpmysqlbackup.php
+```
+
 ## 備份路徑
 
 於本程式下的 backups 目錄中
