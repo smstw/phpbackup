@@ -39,21 +39,8 @@ class SqlBackupApplications
 
 		$backup_dir = $real_path . '/' . $today . '/' . $cfg_site;
 
-		if (is_dir($backup_dir))
-		{
-			echo 'The dir ' . $backup_dir  . ' is exited.' . PHP_EOL;
-		}
-		else
-		{
-			if ($this->cfg['TestMode'] == 1)
-			{
-				echo 'This will create dir named ' . $backup_dir . PHP_EOL;
-			}
-		else
-		{
-			mkdir($backup_dir);
-		}
-}
+		$this->PrepareDir($backup_dir);
+
 		return $backup_dir;
 	}
 
@@ -70,23 +57,35 @@ class SqlBackupApplications
 
 		$full_path = $real_path . '/' . $today_dir;
 
-		if (is_dir($full_path))
+		$this->PrepareDir($full_path);
+
+		return $today_dir;
+	}
+
+	/**
+	 * PrepareDir
+	 *
+	 * @param $path
+	 *
+	 * @return  void
+	 */
+	function PrepareDir($path)
+	{
+		if (is_dir($path))
 		{
-			echo 'The dir ' . $full_path  . ' is exited.' . PHP_EOL;
+			echo 'The dir ' . $path  . ' is exited.' . PHP_EOL;
 		}
 		else
 		{
 			if ($this->cfg['TestMode'] == 1)
 			{
-				echo 'This will create dir named ' . $full_path . PHP_EOL;
+				echo 'This will create dir named ' . $path . PHP_EOL;
 			}
 			else
 			{
-				mkdir($full_path);
+				mkdir($path);
 			}
 		}
-
-		return $today_dir;
 	}
 
 	/**
@@ -139,4 +138,3 @@ class SqlBackupApplications
 		echo $expire_day;
 	}
 }
-
