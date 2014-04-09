@@ -1,14 +1,34 @@
 <?php
 
+/**
+ * Class SqlBackupApplications
+ *
+ * @since 1.0
+ */
 class SqlBackupApplications
 {
+	/**
+	 * Property cfg.
+	 *
+	 * @var  null
+	 */
 	public $cfg;
 
+	/**
+	 * @param null $cfg
+	 */
 	public function __construct($cfg = null)
 	{
 		$this->cfg = $cfg;
 	}
 
+	/**
+	 * MakeBackupDir
+	 *
+	 * @param $cfg_site
+	 *
+	 * @return  string
+	 */
 	function MakeBackupDir($cfg_site)
 	{
 		$today = date('Ymd');
@@ -35,6 +55,13 @@ class SqlBackupApplications
 		return $backup_dir;
 	}
 
+	/**
+	 * SetBackupName
+	 *
+	 * @param $cfg_site
+	 *
+	 * @return  string
+	 */
 	function SetBackupName($cfg_site)
 	{
 		$backup_sql_name = $cfg_site .'.sql';
@@ -42,6 +69,14 @@ class SqlBackupApplications
 		return $backup_sql_name;
 	}
 
+	/**
+	 * DumpingSQL
+	 *
+	 * @param $cfg_i
+	 * @param $DistFile
+	 *
+	 * @return  void
+	 */
 	function DumpingSQL($cfg_i,$DistFile)
 	{
 		$cmd = $this->cfg['MysqlDump_locate'] . ' -u'. $this->cfg['Site'][$cfg_i]['user'] .' -p' . $this->cfg['Site'][$cfg_i]['password'] . ' ' . $this->cfg['Site'][$cfg_i]['database'] . ' > ' . $DistFile;
@@ -56,6 +91,13 @@ class SqlBackupApplications
 		}
 	}
 
+	/**
+	 * del_expire_file
+	 *
+	 * @param $expire_day
+	 *
+	 * @return  void
+	 */
 	function del_expire_file($expire_day)
 	{
 		echo $expire_day;
