@@ -1,15 +1,19 @@
 <?php
-
+$i = 0
 $cfg = array();
 
-/* Server: localhost [1] */
-$cfg['Site'][1]['host'] = 'localhost';
-$cfg['Site'][1]['user'] = '';
-$cfg['Site'][1]['password'] = '';
-$cfg['Site'][1]['database'] = '';
+/* Site: localhost [$i] */
+$i++;
+$cfg['Site'][$i]['Host'] = 'localhost';
+$cfg['Site'][$i]['User'] = '';
+$cfg['Site'][$i]['PassWord'] = '';
+$cfg['Site'][$i]['DataBase'] = '';
+$cfg['Site'][$i]['NasAdd'] = 'nas.server.address';
+$cfg['Site'][$i]['NasUser'] = 'SyncUser';
+$cfg['Site'][$i]['NasPasswd'] = 'pass';
 
-/* End of servers configuration */
+/* End of site configuration */
 
 $cfg['TestMode'] = 1;
 $cfg['DefaultLang'] = 'en-utf-8';
-$cfg['MysqlDump_locate'] = '/Applications/AMPPS/mysql/bin/mysqldump';
+$cfg['MysqlDumpCMDPath'] = '/Applications/AMPPS/mysql/bin/mysqldump';

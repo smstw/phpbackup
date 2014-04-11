@@ -16,11 +16,11 @@ $app = new SqlBackupApplications($cfg);
 
 foreach ($cfg['Site'] as $i => $param)
 {
-	$backup_dir = $app->MakeBackupDir($i);
+	$backupDir = $app->makeBackupDir($i);
 
-	$backup_sql_name = $app->SetBackupName($i);
+	$backupSqlName = $app->setBackupName($i);
 
-	$dist = $backup_dir . '/' . $backup_sql_name;
+	$dist = $backupDir . '/' . $backupSqlName;
 
-	$app->DumpingSQL($i,$dist);
+	$app->dumpingSQL($i, $dist);
 }

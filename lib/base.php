@@ -12,64 +12,64 @@ class SqlBackupApplications
 	 *
 	 * @var  null
 	 */
-	public $cfg;
+	public $config;
 
 	/**
-	 * @param null $cfg
+	 * @param null $config
 	 */
-	public function __construct($cfg = null)
+	public function __construct($config = null)
 	{
-		$this->cfg = $cfg;
+		$this->config = $config;
 	}
 
 	/**
-	 * MakeBackupDir
+	 * makeBackupDir
 	 *
-	 * @param $cfg_i
+	 * @param integer $index
 	 *
-	 * @return  string
+	 * @return string
 	 */
-	function MakeBackupDir($cfg_i)
+	function makeBackupDir($index)
 	{
-		$cfg_site = $this->cfg['Site'][$cfg_i]['database'];
+		$cfgSite = $this->config['Site'][$index]['DataBase'];
 
-		$real_path = realpath('backups');
+		$realPath = realpath('backups');
 
-		$today = $this->MakeTodayDir($real_path);
+		$today = $this->makeTodayDir($realPath);
 
-		$backup_dir = $real_path . '/' . $today . '/' . $cfg_site;
+		$backupDir = $realPath . '/' . $today . '/' . $cfgSite;
 
-		$this->PrepareDir($backup_dir);
+		$this->prepareDir($backupDir);
 
-		return $backup_dir;
+		return $backupDir;
 	}
 
 	/**
-	 * MakeTodayDir
+	 * makeTodayDir
 	 *
-	 * @param $real_path
+	 * @param $realPath
 	 *
-	 * @return  bool|string
+	 * @return bool|string
 	 */
-	function MakeTodayDir($real_path)
+	function makeTodayDir($realPath)
 	{
-		$today_dir = date('Ymd');
+		$todayDir = date('Ymd');
 
-		$full_path = $real_path . '/' . $today_dir;
+		$fullPath = $realPath . '/' . $todayDir;
 
-		$this->PrepareDir($full_path);
+		$this->prepareDir($fullPath);
 
-		return $today_dir;
+		return $todayDir;
 	}
 
 	/**
-	 * PrepareDir
+	 * prepareDir
 	 *
-	 * @param $path
+	 * @param string $path
 	 *
-	 * @return  void
+	 * @return void
 	 */
-	function PrepareDir($path)
+	function prepareDir($path)
 	{
 		if (is_dir($path))
 		{
@@ -77,7 +77,7 @@ class SqlBackupApplications
 		}
 		else
 		{
-			if ($this->cfg['TestMode'] == 1)
+			if ($this->config['TestMode'] == 1)
 			{
 				echo 'This will create dir named ' . $path . PHP_EOL;
 			}
@@ -89,34 +89,40 @@ class SqlBackupApplications
 	}
 
 	/**
-	 * SetBackupName
+	 * setBackupName
 	 *
-	 * @param $cfg_i
+	 * @param integer $index
 	 *
-	 * @return  string
+	 * @return string
 	 */
-	function SetBackupName($cfg_i)
+	function setBackupName($index)
 	{
-		$cfg_site = $this->cfg['Site'][$cfg_i]['database'];
+		$cfgSite = $this->config['Site'][$index]['DataBase'];
 		$serial = date('YmdHis');
-		$backup_sql_name = $cfg_site . '-' . $serial .'.sql';
+		$backupSqlName = $cfgSite . '-' . $serial .'.sql';
 
-		return $backup_sql_name;
+		return $backupSqlName;
 	}
 
 	/**
-	 * DumpingSQL
+	 * dumpingSQL
 	 *
-	 * @param $cfg_i
-	 * @param $DistFile
+	 * @param integer $index
+	 * @param string $distFile
 	 *
 	 * @return  void
 	 */
-	function DumpingSQL($cfg_i,$DistFile)
+	function dumpingSQL($index,$distFile)
 	{
-		$cmd = $this->cfg['MysqlDump_locate'] . ' -u'. $this->cfg['Site'][$cfg_i]['user'] .' -p' . $this->cfg['Site'][$cfg_i]['password'] . ' ' . $this->cfg['Site'][$cfg_i]['database'] . ' > ' . $DistFile;
+		$dumpCmd = $this->config['MysqlDumpCMDPath'];
+		$mysqlUser = $this->config['Site'][$index]['User'];
+		$mysqlPassWord = $this->config['Site'][$index]['PassWord'];
+		$mysqlDataBase = $this->config['Site'][$index]['DataBase'];
+		$dumpBackupPath = $distFile;
 
-		if ($this->cfg['TestMode'] == 1)
+		$cmd = sprintf('%s -u %s -p %s %s > %s', $dumpCmd, $mysqlUser, $mysqlPassWord, $mysqlDataBase, $dumpBackupPath);
+
+		if ($this->config['TestMode'] == 1)
 		{
 			echo 'the shell will be : ' . $cmd . PHP_EOL;
 		}
