@@ -29,7 +29,7 @@ class SqlBackupApplications
 	 *
 	 * @return string
 	 */
-	function makeBackupDir($index)
+	public function makeBackupDir($index)
 	{
 		$cfgSite = $this->config['Site'][$index]['DataBase'];
 
@@ -51,7 +51,7 @@ class SqlBackupApplications
 	 *
 	 * @return bool|string
 	 */
-	function makeTodayDir($realPath)
+	public function makeTodayDir($realPath)
 	{
 		$todayDir = date('Ymd');
 
@@ -69,7 +69,7 @@ class SqlBackupApplications
 	 *
 	 * @return void
 	 */
-	function prepareDir($path)
+	public function prepareDir($path)
 	{
 		if (is_dir($path))
 		{
@@ -95,7 +95,7 @@ class SqlBackupApplications
 	 *
 	 * @return string
 	 */
-	function setBackupName($index)
+	public function setBackupName($index)
 	{
 		$cfgSite = $this->config['Site'][$index]['DataBase'];
 		$serial = date('YmdHis');
@@ -112,7 +112,7 @@ class SqlBackupApplications
 	 *
 	 * @return  void
 	 */
-	function dumpingSQL($index,$distFile)
+	public function dumpingSQL($index,$distFile)
 	{
 		$dumpCmd = $this->config['MysqlDumpCMDPath'];
 		$mysqlUser = $this->config['Site'][$index]['User'];
@@ -139,7 +139,7 @@ class SqlBackupApplications
 	 *
 	 * @return  void
 	 */
-	function del_expire_file($expire_day)
+	public function del_expire_file($expire_day)
 	{
 		echo $expire_day;
 	}
