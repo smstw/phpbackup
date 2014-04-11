@@ -120,7 +120,7 @@ class SqlBackupApplications
 		$mysqlDataBase = $this->config['Site'][$index]['DataBase'];
 		$dumpBackupPath = $distFile;
 
-		$cmd = sprintf('%s -u %s -p %s %s > %s', $dumpCmd, $mysqlUser, $mysqlPassWord, $mysqlDataBase, $dumpBackupPath);
+		$cmd = sprintf('%s -u%s -p%s %s > %s', $dumpCmd, $mysqlUser, $mysqlPassWord, $mysqlDataBase, $dumpBackupPath);
 
 		if ($this->config['TestMode'] == 1)
 		{

@@ -7,10 +7,10 @@
  */
 include('config.php');
 
-foreach (glob("lib/*.php") as $filename)
-{
-	include $filename;
-}
+// Register autoload function
+spl_autoload_register(function ($class) {
+		require __DIR__ . '/lib/' . $class . '.php';
+	});
 
 $app = new SqlBackupApplications($cfg);
 
