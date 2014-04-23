@@ -57,7 +57,7 @@ $php phpmysqlbackup.php
    - 啟用 crontab 編輯器
 
 ```bash
-$crontab -e
+$ crontab -e
 ```
 
   - 加入指令，如每天半夜3點30分執行備份
