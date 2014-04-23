@@ -1,19 +1,26 @@
 <?php
-$i = 0
-$cfg = array();
+/* Multi sites */
+$i=0;
 
-/* Site: localhost [$i] */
+/* Site: TheSite [$i] */
 $i++;
 $cfg['Site'][$i]['Host'] = 'localhost';
 $cfg['Site'][$i]['User'] = '';
 $cfg['Site'][$i]['PassWord'] = '';
 $cfg['Site'][$i]['DataBase'] = '';
-$cfg['Site'][$i]['NasAdd'] = 'nas.server.address';
-$cfg['Site'][$i]['NasUser'] = 'SyncUser';
-$cfg['Site'][$i]['NasPasswd'] = 'pass';
 
-/* End of site configuration */
 
-$cfg['TestMode'] = 1;
+/* Multi sync to storage servers configuration */
+$i=0;
+
+/* The storage server of [$i] */
+$i++;
+$cfg['Storage'][$i]['HostAdd'] = '192.168.1.100';
+$cfg['Storage'][$i]['User'] = '';
+$cfg['Storage'][$i]['SourcePath'] = '';
+$cfg['Storage'][$i]['DistPath'] = '/storage/backup/data';
+
+/* Program configs */
+$cfg['TestMode'] = 0;
 $cfg['DefaultLang'] = 'en-utf-8';
 $cfg['MysqlDumpCMDPath'] = '/Applications/AMPPS/mysql/bin/mysqldump';
