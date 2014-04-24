@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Class SqlBackupApplications
+ * Class SqlBackupApplication
  *
  * @since 1.0
  */
-class SqlBackupApplications
+class SqlBackupApplication
 {
 	/**
 	 * Property cfg.
@@ -133,11 +133,11 @@ class SqlBackupApplications
 	}
 
 	/**
-	 * del_expire_file
+	 * deleteExpireFile
 	 *
 	 * @return  void
 	 */
-	public function del_expire_file()
+	public function deleteExpireFile()
 	{
 		// Planing how to delete expires.
 		echo $this->config['DayToExpire'];

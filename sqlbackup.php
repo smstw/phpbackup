@@ -15,7 +15,7 @@ spl_autoload_register(
 	}
 );
 
-$app = new SqlBackupApplications($cfg);
+$app = new SqlBackupApplication($cfg);
 
 foreach ($cfg['Site'] as $i => $param)
 {
