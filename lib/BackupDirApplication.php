@@ -89,6 +89,28 @@ class BackupDirApplication
 	}
 
 	/**
+	 * setTarBallName
+	 *
+	 * @param integer $index
+	 *
+	 * @return  string
+	 */
+	public function setTarBallName($index)
+	{
+		$cfgSite = $this->config['Site'][$index]['MediaDirs'];
+		$serial = date('YmdHis');
+		$TarBallName = $cfgSite . '-' . $serial .'.tar';
+
+		return $TarBallName;
+	}
+
+	public function doTarFile($dest)
+	{
+		// Planing hot to do tar files
+		return true;
+	}
+
+	/**
 	 * deleteExpireFile
 	 *
 	 * @return  void

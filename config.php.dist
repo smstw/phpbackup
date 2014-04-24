@@ -8,6 +8,7 @@ $cfg['Site'][$i]['Host'] = 'localhost';
 $cfg['Site'][$i]['User'] = '';
 $cfg['Site'][$i]['PassWord'] = '';
 $cfg['Site'][$i]['DataBase'] = '';
+$cfg['Site'][$i]['MediaDirs'] = 'media,images';
 
 
 /* Multi sync to storage servers configuration */
