@@ -135,12 +135,11 @@ class SqlBackupApplications
 	/**
 	 * del_expire_file
 	 *
-	 * @param $expire_day
-	 *
 	 * @return  void
 	 */
-	public function del_expire_file($expire_day)
+	public function del_expire_file()
 	{
-		echo $expire_day;
+		// Planing how to delete expires.
+		echo $this->config['DayToExpire'];
 	}
 }
