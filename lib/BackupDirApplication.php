@@ -33,7 +33,7 @@ class BackupDirApplication
 	{
 		$cfgSite = $this->config['Site'][$index]['DataBase'];
 
-		$realPath = realpath('backups');
+		$realPath = $this->config['BackupPath'];
 
 		$today = $this->makeTodayDir($realPath);
 

@@ -30,7 +30,7 @@ class SyncToStorageApplication
 	public function startSync($index)
 	{
 		$syncCmd = 'rsync -avl';
-		$syncSource = $this->config['Storage'][$index]['SourcePath'];
+		$syncSource = $this->config['BackupPath'];
 		$syncSSH = '-e ssh';
 		$syncSSHUser = $this->config['Storage'][$index]['User'];
 		$syncHOST = $this->config['Storage'][$index]['HostAdd'];
