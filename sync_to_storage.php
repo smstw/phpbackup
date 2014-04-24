@@ -12,9 +12,7 @@ foreach (glob("lib/*.php") as $filename)
 {
 	include $filename;
 }
-
-$nas = new SyncToNasApplications($cfg);
-
+$nas = new SyncToStorageApplication($cfg);
 
 foreach ($cfg['Storage'] as $i => $param)
 {
