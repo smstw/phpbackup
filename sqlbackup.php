@@ -15,15 +15,17 @@ spl_autoload_register(
 	}
 );
 
-$app = new SqlBackupApplication($cfg);
+$dump = new SqlBackupApplication($cfg);
+
+$dir = new BackupDirApplication($cfg);
 
 foreach ($cfg['Site'] as $i => $param)
 {
-	$backupDir = $app->makeBackupDir($i);
+	$backupDir = $dir->makeBackupDir($i);
 
-	$backupSqlName = $app->setBackupName($i);
+	$backupSqlName = $dump->setBackupSqlName($i);
 
 	$dist = $backupDir . '/' . $backupSqlName;
 
-	$app->dumpingSQL($i, $dist);
+	$dump->dumpingSQL($i, $dist);
 }

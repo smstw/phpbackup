@@ -29,7 +29,7 @@ class SyncToStorageApplication
 	 */
 	public function startSync($index)
 	{
-		$syncCmd = 'rsync -avl --delete';
+		$syncCmd = 'rsync -avl';
 		$syncSource = $this->config['Storage'][$index]['SourcePath'];
 		$syncSSH = '-e ssh';
 		$syncSSHUser = $this->config['Storage'][$index]['User'];
@@ -40,7 +40,7 @@ class SyncToStorageApplication
 
 		if ($this->config['TestMode'] == 1)
 		{
-			$syncCmd = 'rsync --dry-run -avl --delete';
+			$syncCmd = 'rsync --dry-run -avl';
 			$cmd = sprintf('%s %s %s %s@%s:%s', $syncCmd, $syncSource, $syncSSH, $syncSSHUser, $syncHOST, $syncDist);
 			echo 'the shell will be : ' . $cmd . PHP_EOL;
 			echo 'Dry run to test .... ' . PHP_EOL;
