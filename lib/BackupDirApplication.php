@@ -97,17 +97,40 @@ class BackupDirApplication
 	 */
 	public function setTarBallName($index)
 	{
-		$cfgSite = $this->config['Site'][$index]['MediaDirs'];
+		$siteName = $this->config['Site'][$index]['SiteName'];
 		$serial = date('YmdHis');
-		$TarBallName = $cfgSite . '-' . $serial .'.tar';
+		$TarBallName = $siteName . '-' . $serial .'.tar.gz';
 
 		return $TarBallName;
 	}
 
-	public function doTarFile($dest)
+	public function doTarFile($dest,$index)
 	{
-		// Planing hot to do tar files
-		return true;
+		$tarCMD = 'tar zcvf';
+		$tarDest = $dest;
+		$tarSources = '';
+
+		$getConfigMediaDirs = $this->config['Site'][$index]['MediaDirs'];
+		$getConfigSitePath = $this->config['Site'][$index]['SitePath'];
+
+		$mediaDirs = explode(',', $getConfigMediaDirs);
+
+		foreach ($mediaDirs as $dir)
+		{
+			$tarSources .= ' ' . $getConfigSitePath . '/' . $dir ;
+		}
+
+		echo 'tar source :' . $tarSources . PHP_EOL;
+		$cmd = sprintf('%s %s %s',$tarCMD ,$tarDest, $tarSources);
+
+		if ($this->config['TestMode'] == 1)
+		{
+			echo 'This command will be : ' . $cmd . PHP_EOL;
+		}
+		else
+		{
+			system($cmd);
+		}
 	}
 
 	/**

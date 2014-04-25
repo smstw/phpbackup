@@ -4,10 +4,12 @@ $i=0;
 
 /* Site: TheSite [$i] */
 $i++;
+$cfg['Site'][$i]['SiteName'] = 'localhost';
 $cfg['Site'][$i]['Host'] = 'localhost';
 $cfg['Site'][$i]['User'] = '';
 $cfg['Site'][$i]['PassWord'] = '';
 $cfg['Site'][$i]['DataBase'] = '';
+$cfg['Site'][$i]['SitePath'] = '/path/to/web/pages';
 $cfg['Site'][$i]['MediaDirs'] = 'media,images';
 
 
