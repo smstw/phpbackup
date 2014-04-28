@@ -29,19 +29,19 @@ class SyncToStorageApplication
 	 */
 	public function startSync($index)
 	{
-		$syncCmd = 'rsync -avl --delete';
-		$syncSource = $this->config['Storage'][$index]['SourcePath'];
+		$syncCmd = 'rsync -avl';
+		$syncSource = $this->config['BackupPath'];
 		$syncSSH = '-e ssh';
 		$syncSSHUser = $this->config['Storage'][$index]['User'];
 		$syncHOST = $this->config['Storage'][$index]['HostAdd'];
-		$syncDist = $this->config['Storage'][$index]['DistPath'];
+		$syncDest = $this->config['Storage'][$index]['DestPath'];
 
-		$cmd = sprintf('%s %s %s %s@%s:%s', $syncCmd, $syncSource, $syncSSH, $syncSSHUser, $syncHOST, $syncDist);
+		$cmd = sprintf('%s %s %s %s@%s:%s', $syncCmd, $syncSource, $syncSSH, $syncSSHUser, $syncHOST, $syncDest);
 
 		if ($this->config['TestMode'] == 1)
 		{
-			$syncCmd = 'rsync --dry-run -avl --delete';
-			$cmd = sprintf('%s %s %s %s@%s:%s', $syncCmd, $syncSource, $syncSSH, $syncSSHUser, $syncHOST, $syncDist);
+			$syncCmd = 'rsync --dry-run -avl';
+			$cmd = sprintf('%s %s %s %s@%s:%s', $syncCmd, $syncSource, $syncSSH, $syncSSHUser, $syncHOST, $syncDest);
 			echo 'the shell will be : ' . $cmd . PHP_EOL;
 			echo 'Dry run to test .... ' . PHP_EOL;
 			system($cmd);

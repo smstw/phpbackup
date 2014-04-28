@@ -4,10 +4,13 @@ $i=0;
 
 /* Site: TheSite [$i] */
 $i++;
+$cfg['Site'][$i]['SiteName'] = 'localhost';
 $cfg['Site'][$i]['Host'] = 'localhost';
 $cfg['Site'][$i]['User'] = '';
 $cfg['Site'][$i]['PassWord'] = '';
 $cfg['Site'][$i]['DataBase'] = '';
+$cfg['Site'][$i]['SitePath'] = '/path/to/web/pages';
+$cfg['Site'][$i]['MediaDirs'] = 'media,images';
 
 
 /* Multi sync to storage servers configuration */
@@ -17,10 +20,10 @@ $i=0;
 $i++;
 $cfg['Storage'][$i]['HostAdd'] = '192.168.1.100';
 $cfg['Storage'][$i]['User'] = '';
-$cfg['Storage'][$i]['SourcePath'] = '';
 $cfg['Storage'][$i]['DistPath'] = '/storage/backup/data';
 
 /* Program configs */
 $cfg['TestMode'] = 0;
 $cfg['DefaultLang'] = 'en-utf-8';
+$cfg['BackupPath'] = 'backups';
 $cfg['MysqlDumpCMDPath'] = '/Applications/AMPPS/mysql/bin/mysqldump';
