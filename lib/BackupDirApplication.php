@@ -106,7 +106,7 @@ class BackupDirApplication
 
 	public function doTarFile($dest,$index)
 	{
-		$tarCMD = 'tar zcvf';
+		$tarCMD = 'tar zcf';
 		$tarDest = $dest;
 		$tarSources = '';
 
@@ -134,13 +134,31 @@ class BackupDirApplication
 	}
 
 	/**
-	 * deleteExpireFile
+	 * DoExpires
+	 *
+	 * @param integer $index
 	 *
 	 * @return  void
 	 */
-	public function DoExpires()
+	public function DoExpires($index)
 	{
-		// Planing how to delete expires.
-		echo $this->config['DayToExpire'];
+		$sshCmd = 'ssh';
+		$sshUser = $this->config['Storage'][$index]['User'];
+		$sshHost = $this->config['Storage'][$index]['HostAdd'];
+		$rmCmd = 'rm -rf';
+		$rmDirName = $this->config['BackupPath'];
+		$rmDestPath = $this->config['Storage'][$index]['DestPath'];
+		$daysToExpire = mktime(0, 0, 0, date('m'), (date('d') - $this->config['DayToExpire']), date('Y'));
+
+		$expireDir = date('Ymd', $daysToExpire);
+
+		$rmFullDestPath = $rmDestPath . '/' . $rmDirName . '/' . $expireDir;
+
+		$cmd = sprintf('%s %s@%s %s %s', $sshCmd, $sshUser, $sshHost, $rmCmd, $rmFullDestPath);
+
+		echo 'The expire files is' . $rmFullDestPath . PHP_EOL;
+
+		system($cmd);
+
 	}
 }

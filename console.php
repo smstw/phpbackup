@@ -80,6 +80,16 @@ function syncToStorage($cfg)
 	$storage->delBackupsAfterSync();
 }
 
+function delExpireFiles($cfg)
+{
+	$expire = new BackupDirApplication($cfg);
+	foreach ($cfg['Storage'] as $i => $param)
+	{
+		$expire->DoExpires($i);
+	}
+
+}
+
 // Execute command to do things.
 if ($argc !== 2)
 {
@@ -107,18 +117,24 @@ switch ($command)
 
 		mediaBackup($cfg);
 
-		break;
+	break;
 
 	case 'doall':
 
 		sqlBackup($cfg);
 		mediaBackup($cfg);
 		syncToStorage($cfg);
+		delExpireFiles($cfg);
 
-		break;
+	break;
 
-	default :
+	case 'doexpires':
 
+		delExpireFiles($cfg);
+
+	break;
+
+	default:
 		echo 'Command not found.' . PHP_EOL;
 		showUsage();
 }
