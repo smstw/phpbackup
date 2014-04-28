@@ -138,7 +138,7 @@ class BackupDirApplication
 	 *
 	 * @return  void
 	 */
-	public function deleteExpireFile()
+	public function DoExpires()
 	{
 		// Planing how to delete expires.
 		echo $this->config['DayToExpire'];

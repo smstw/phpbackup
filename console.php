@@ -70,12 +70,14 @@ function mediaBackup($cfg)
  */
 function syncToStorage($cfg)
 {
-	$nas = new SyncToStorageApplication($cfg);
+	$storage = new SyncToStorageApplication($cfg);
 
 	foreach ($cfg['Storage'] as $i => $param)
 	{
-		$nas->startSync($i);
+		$storage->startSync($i);
 	}
+
+	$storage->delBackupsAfterSync();
 }
 
 // Execute command to do things.

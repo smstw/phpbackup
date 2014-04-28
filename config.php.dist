@@ -24,6 +24,8 @@ $cfg['Storage'][$i]['DistPath'] = '/storage/backup/data';
 
 /* Program configs */
 $cfg['TestMode'] = 0;
+$cfg['DayToExpire'] = 7;
+$cfg['DelFilesAfterSync'] = 1;
 $cfg['DefaultLang'] = 'en-utf-8';
 $cfg['BackupPath'] = 'backups';
 $cfg['MysqlDumpCMDPath'] = '/Applications/AMPPS/mysql/bin/mysqldump';

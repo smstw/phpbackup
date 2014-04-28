@@ -53,5 +53,27 @@ class SyncToStorageApplication
 
 		return true;
 	}
+
+	/**
+	 * delBackupsAfterSync
+	 *
+	 * @return  void
+	 */
+	public function delBackupsAfterSync()
+	{
+		$rmCMD = 'rm -rf';
+		$rmDirPath = $this->config['BackupPath'];
+
+		if ($this->config['DelFilesAfterSync'] == 1)
+		{
+			$cmd = sprintf('%s %s/*', $rmCMD, $rmDirPath);
+			system($cmd);
+
+			echo sprintf('The backup : %s have deleted after sync .', $rmDirPath) . PHP_EOL;
+		}
+		else
+		{
+			echo sprintf('The backup : %s is not delete after sync .', $rmDirPath) . PHP_EOL;
+		}
+	}
 }
- 
