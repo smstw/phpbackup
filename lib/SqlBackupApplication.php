@@ -49,7 +49,7 @@ class SqlBackupApplication
 	public function dumpingSQL($index,$distFile)
 	{
 		$dumpCmd = $this->config['MysqlDumpCMDPath'];
-		$mysqlHost = $this->config[$index]['Host'];
+		$mysqlHost = $this->config['Site'][$index]['Host'];
 		$mysqlUser = $this->config['Site'][$index]['User'];
 		$mysqlPassWord = $this->config['Site'][$index]['PassWord'];
 		$mysqlDataBase = $this->config['Site'][$index]['DataBase'];
