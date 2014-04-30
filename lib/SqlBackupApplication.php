@@ -49,12 +49,13 @@ class SqlBackupApplication
 	public function dumpingSQL($index,$distFile)
 	{
 		$dumpCmd = $this->config['MysqlDumpCMDPath'];
+		$mysqlHost = $this->config['Host'];
 		$mysqlUser = $this->config['Site'][$index]['User'];
 		$mysqlPassWord = $this->config['Site'][$index]['PassWord'];
 		$mysqlDataBase = $this->config['Site'][$index]['DataBase'];
 		$dumpBackupPath = $distFile;
 
-		$cmd = sprintf('%s -u%s -p%s %s > %s', $dumpCmd, $mysqlUser, $mysqlPassWord, $mysqlDataBase, $dumpBackupPath);
+		$cmd = sprintf('%s -h%s -u%s -p%s %s > %s', $dumpCmd ,$mysqlHost ,$mysqlUser, $mysqlPassWord, $mysqlDataBase, $dumpBackupPath);
 
 		if ($this->config['TestMode'] == 1)
 		{
