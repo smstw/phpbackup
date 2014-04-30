@@ -20,7 +20,7 @@ $i=0;
 $i++;
 $cfg['Storage'][$i]['HostAdd'] = '192.168.1.100';
 $cfg['Storage'][$i]['User'] = '';
-$cfg['Storage'][$i]['DistPath'] = '/storage/backup/data';
+$cfg['Storage'][$i]['DestPath'] = '/storage/backup/data';
 
 /* Program configs */
 $cfg['TestMode'] = 0;
