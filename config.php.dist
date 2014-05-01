@@ -27,5 +27,5 @@ $cfg['TestMode'] = 0;
 $cfg['DayToExpire'] = 7;
 $cfg['DelFilesAfterSync'] = 1;
 $cfg['DefaultLang'] = 'en-utf-8';
-$cfg['BackupPath'] = 'backups';
+$cfg['BackupPath'] = '/this/is/with/full/path';
 $cfg['MysqlDumpCMDPath'] = '/Applications/AMPPS/mysql/bin/mysqldump';
