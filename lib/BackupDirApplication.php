@@ -146,7 +146,7 @@ class BackupDirApplication
 		$sshUser = $this->config['Storage'][$index]['User'];
 		$sshHost = $this->config['Storage'][$index]['HostAdd'];
 		$rmCmd = 'rm -rf';
-		$rmDirName = $this->config['BackupPath'];
+		$rmDirName = $this->explodePath($this->config['BackupPath']);
 		$rmDestPath = $this->config['Storage'][$index]['DestPath'];
 		$daysToExpire = mktime(0, 0, 0, date('m'), (date('d') - $this->config['DayToExpire']), date('Y'));
 
@@ -160,5 +160,15 @@ class BackupDirApplication
 
 		system($cmd);
 
+	}
+
+	public function explodePath($path)
+	{
+		$peaces= explode('/', $path);
+		$totalPeace = count($peaces);
+		$lastPeace = $totalPeace - 1;
+		$directoryName = $peaces[$lastPeace];
+
+		return $directoryName;
 	}
 }
