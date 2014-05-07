@@ -162,6 +162,13 @@ class BackupDirApplication
 
 	}
 
+	/**
+	 * explodePath
+	 *
+	 * @param string $path
+	 *
+	 * @return  mixed
+	 */
 	public function explodePath($path)
 	{
 		$peaces= explode('/', $path);
