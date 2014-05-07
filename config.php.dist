@@ -22,6 +22,18 @@ $cfg['Storage'][$i]['HostAdd'] = '192.168.1.100';
 $cfg['Storage'][$i]['User'] = '';
 $cfg['Storage'][$i]['DestPath'] = '/storage/backup/data';
 
+/* Multi pull backups from remote servers */
+$i=0;
+
+/* remote server 1 */
+$i++;
+$cfg['Remote'][$i]['HostAdd'] = '';
+$cfg['Remote'][$i]['User'] = '';
+$cfg['Remote'][$i]['Source'] = '';
+
+/* Local configs */
+$cfg['BackupDest'] = '';
+
 /* Program configs */
 $cfg['TestMode'] = 0;
 $cfg['DayToExpire'] = 7;

@@ -80,6 +80,13 @@ function syncToStorage($cfg)
 	$storage->delBackupsAfterSync();
 }
 
+/**
+ * delExpireFiles
+ *
+ * @param string $cfg
+ *
+ * @return  void
+ */
 function delExpireFiles($cfg)
 {
 	$expire = new BackupDirApplication($cfg);
@@ -90,6 +97,50 @@ function delExpireFiles($cfg)
 
 }
 
+/**
+ * delExpiresOnLocal
+ *
+ * @param string $cfg
+ *
+ * @return  void
+ */
+function delExpiresOnLocal($cfg)
+{
+	$expire = new BackupDirApplication($cfg);
+	$expire->doLocalExpires();
+}
+
+/**
+ * delRemoteFiles
+ *
+ * @param string $cfg
+ *
+ * @return  void
+ */
+function delRemoteFiles($cfg)
+{
+	$del = new SyncToStorageApplication($cfg);
+	foreach ($cfg['Remote'] as $i => $param)
+	{
+		$del->delRemoteBackupsAfterSync($i);
+	}
+}
+
+/**
+ * syncRemote
+ *
+ * @param string $cfg
+ *
+ * @return  void
+ */
+function syncRemote($cfg)
+{
+	$remote = new SyncToStorageApplication($cfg);
+	foreach ($cfg['Remote'] as $i => $param)
+	{
+		$remote->syncFromRemote($i);
+	}
+}
 // Execute command to do things.
 if ($argc !== 2)
 {
@@ -119,20 +170,22 @@ switch ($command)
 
 	break;
 
-	case 'doall':
-
+	case 'dobackup':
 		sqlBackup($cfg);
 		mediaBackup($cfg);
-		syncToStorage($cfg);
-		delExpireFiles($cfg);
-
-	break;
+		break;
 
 	case 'doexpires':
 
 		delExpireFiles($cfg);
 
 	break;
+
+	case 'syncremote':
+		syncRemote($cfg);
+		delRemoteFiles($cfg);
+		delExpiresOnLocal($cfg);
+		break;
 
 	default:
 		echo 'Command not found.' . PHP_EOL;
@@ -150,5 +203,6 @@ function showUsage()
 	echo 'To dump sqls type : php console.php sqldump.' . PHP_EOL;
 	echo 'To sync sqls files type : php console.php syncfiles.' . PHP_EOL;
 	echo 'To tar medias type : php console.php tarmedias.' . PHP_EOL;
+	echo 'To do sync from remote type : php console.php syncremote.' . PHP_EOL;
 	echo 'To do dump sqls, tar medias and sync files of all things type : php console.php doall.' . PHP_EOL;
 }
