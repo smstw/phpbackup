@@ -83,7 +83,7 @@ function syncToStorage($cfg)
 /**
  * delExpireFiles
  *
- * @param $cfg
+ * @param string $cfg
  *
  * @return  void
  */
@@ -97,6 +97,42 @@ function delExpireFiles($cfg)
 
 }
 
+/**
+ * delExpiresOnLocal
+ *
+ * @param string $cfg
+ *
+ * @return  void
+ */
+function delExpiresOnLocal($cfg)
+{
+	$expire = new BackupDirApplication($cfg);
+	$expire->doLocalExpires();
+}
+
+/**
+ * delRemoteFiles
+ *
+ * @param string $cfg
+ *
+ * @return  void
+ */
+function delRemoteFiles($cfg)
+{
+	$del = new SyncToStorageApplication($cfg);
+	foreach ($cfg['Remote'] as $i => $param)
+	{
+		$del->delRemoteBackupsAfterSync($i);
+	}
+}
+
+/**
+ * syncRemote
+ *
+ * @param string $cfg
+ *
+ * @return  void
+ */
 function syncRemote($cfg)
 {
 	$remote = new SyncToStorageApplication($cfg);
@@ -134,14 +170,10 @@ switch ($command)
 
 	break;
 
-	case 'doall':
-
+	case 'dobackup':
 		sqlBackup($cfg);
 		mediaBackup($cfg);
-		syncToStorage($cfg);
-		delExpireFiles($cfg);
-
-	break;
+		break;
 
 	case 'doexpires':
 
@@ -151,6 +183,8 @@ switch ($command)
 
 	case 'syncremote':
 		syncRemote($cfg);
+		delRemoteFiles($cfg);
+		delExpiresOnLocal($cfg);
 		break;
 
 	default:
