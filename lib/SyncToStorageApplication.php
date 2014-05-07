@@ -80,12 +80,31 @@ class SyncToStorageApplication
 	/**
 	 * delRemoteBackupsAfterSync
 	 *
+	 * @param integer $index
+	 *
 	 * @return  void
 	 */
-	public function delRemoteBackupsAfterSync()
+	public function delRemoteBackupsAfterSync($index)
 	{
+		$rmCMD = 'rm -rf';
+		$rmDirPath = $this->config['Remote'][$index]['Source'];
+		$sshCMD = 'ssh';
+		$remoteUser = $this->config['Remote'][$index]['User'];
+		$remoteHost = $this->config['Remote'][$index]['HostAdd'];
 
-	}
+		if ($this->config['DelFilesAfterSync'] == 1)
+		{
+			$cmd = sprintf('%s %s@%s %s %s/*', $sshCMD, $remoteUser, $remoteHost, $rmCMD, $rmDirPath);
+
+			system($cmd);
+
+			echo sprintf('The backup : %s have deleted after sync.', $rmDirPath) . PHP_EOL;
+		}
+		else
+		{
+			echo sprintf('The backup : %s is not delete after sync.', $rmDirPath) . PHP_EOL;
+		}
+ }
 
 	/**
 	 * syncFromRemote
@@ -118,6 +137,7 @@ class SyncToStorageApplication
 		}
 		else
 		{
+			echo 'the shell will be : ' . $cmd . PHP_EOL;
 			system($cmd);
 		}
 	}
