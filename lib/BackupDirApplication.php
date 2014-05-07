@@ -162,6 +162,24 @@ class BackupDirApplication
 
 	}
 
+	public function doLocalExpires()
+	{
+		$rmCmd = 'rm -rf';
+		$rmPath = $this->config['BackupDest'];
+		$daysToExpire = mktime(0, 0, 0, date('m'), (date('d') - $this->config['DayToExpire']), date('Y'));
+
+		$expireDir = date('Ymd', $daysToExpire);
+
+		$fullPath = $rmPath . '/' . $expireDir;
+
+		$cmd = sprintf('%s %s', $rmCmd, $fullPath);
+
+		echo 'The expire files is' . $fullPath . PHP_EOL;
+
+		system($cmd);
+
+	}
+
 	/**
 	 * explodePath
 	 *
