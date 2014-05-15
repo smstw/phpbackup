@@ -57,7 +57,6 @@ function mediaBackup($cfg)
 		$dest = $backupDir . '/' . $backupName;
 
 		$dir->doTarFile($dest,$i);
-
 	}
 }
 
@@ -94,7 +93,6 @@ function delExpireFiles($cfg)
 	{
 		$expire->DoExpires($i);
 	}
-
 }
 
 /**
@@ -107,7 +105,10 @@ function delExpireFiles($cfg)
 function delExpiresOnLocal($cfg)
 {
 	$expire = new BackupDirApplication($cfg);
-	$expire->doLocalExpires();
+	foreach ($cfg['Remote'] as $i => $param)
+	{
+		$expire->doLocalExpires($i);
+	}
 }
 
 /**
@@ -141,6 +142,7 @@ function syncRemote($cfg)
 		$remote->syncFromRemote($i);
 	}
 }
+
 // Execute command to do things.
 if ($argc !== 2)
 {
@@ -153,22 +155,16 @@ $command = $argv[1];
 switch ($command)
 {
 	case 'sqldump':
-
 		sqlBackup($cfg);
-
-	break;
+		break;
 
 	case 'syncfiles':
-
 		syncToStorage($cfg);
-
-	break;
+		break;
 
 	case 'tarmedias':
-
 		mediaBackup($cfg);
-
-	break;
+		break;
 
 	case 'dobackup':
 		sqlBackup($cfg);
@@ -176,10 +172,8 @@ switch ($command)
 		break;
 
 	case 'doexpires':
-
-		delExpireFiles($cfg);
-
-	break;
+		delExpiresOnLocal($cfg);
+		break;
 
 	case 'syncremote':
 		syncRemote($cfg);
@@ -203,6 +197,6 @@ function showUsage()
 	echo 'To dump sqls type : php console.php sqldump.' . PHP_EOL;
 	echo 'To sync sqls files type : php console.php syncfiles.' . PHP_EOL;
 	echo 'To tar medias type : php console.php tarmedias.' . PHP_EOL;
-	echo 'To do sync from remote type : php console.php syncremote.' . PHP_EOL;
-	echo 'To do dump sqls, tar medias and sync files of all things type : php console.php doall.' . PHP_EOL;
+	echo 'To sync from remote type : php console.php syncremote.' . PHP_EOL;
+	echo 'To dump sqls, tar medias and sync files of all things type : php console.php doall.' . PHP_EOL;
 }
