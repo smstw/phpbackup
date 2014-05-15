@@ -107,7 +107,10 @@ function delExpireFiles($cfg)
 function delExpiresOnLocal($cfg)
 {
 	$expire = new BackupDirApplication($cfg);
-	$expire->doLocalExpires();
+	foreach ($cfg['Remote'] as $i => $param)
+	{
+		$expire->doLocalExpires($i);
+	}
 }
 
 /**
@@ -177,7 +180,7 @@ switch ($command)
 
 	case 'doexpires':
 
-		delExpireFiles($cfg);
+		delExpiresOnLocal($cfg);
 
 	break;
 

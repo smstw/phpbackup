@@ -162,10 +162,13 @@ class BackupDirApplication
 
 	}
 
-	public function doLocalExpires()
+	public function doLocalExpires($index)
 	{
 		$rmCmd = 'rm -rf';
-		$rmPath = $this->config['BackupDest'];
+
+		$rmDirName = $this->explodePath($this->config['Remote'][$index]['Source']);
+		$rmPath = $this->config['BackupDest'] . '/' . $rmDirName;
+
 		$daysToExpire = mktime(0, 0, 0, date('m'), (date('d') - $this->config['DayToExpire']), date('Y'));
 
 		$expireDir = date('Ymd', $daysToExpire);
