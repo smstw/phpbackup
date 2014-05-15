@@ -162,6 +162,13 @@ class BackupDirApplication
 
 	}
 
+	/**
+	 * doLocalExpires
+	 *
+	 * @param integer $index
+	 *
+	 * @return  void
+	 */
 	public function doLocalExpires($index)
 	{
 		$rmCmd = 'rm -rf';
